@@ -14,8 +14,6 @@ class JanomeTokenizer(object):
         return words
 
     def tokenize(self, sent):
-        tokens = []
-
         for t in self._t.tokenize(sent):
             token = namedtuple('Token', 'surface, pos, pos_detail1, pos_detail2, pos_detail3,\
                                                  infl_type, infl_form, base_form, reading, phonetic')
@@ -30,9 +28,7 @@ class JanomeTokenizer(object):
             token.base_form = t.base_form    # 原型
             token.reading = t.reading        # 読み
             token.phonetic = token.phonetic  # 発音
-            tokens.append(token)
-
-        return tokens
+            yield token
 
     def filter_by_pos(self, sent, pos=('名詞', )):
         tokens = [token for token in self.tokenize(sent) if token.pos in pos]
