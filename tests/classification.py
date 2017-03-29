@@ -31,4 +31,4 @@ text_clf = Pipeline([('vect', CountVectorizer(analyzer=tokenizer.wakati)),
                      ])
 
 text_clf = text_clf.fit(X_train, y_train)
-text_clf.score(X_test, y_test)
+print(text_clf.score(X_test, y_test))
