@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import re
 import unicodedata
 
 import nltk
@@ -23,3 +24,15 @@ def lemmatize_term(term, pos=None):
         if pos == wordnet.ADJ_SAT:
             pos = wordnet.ADJ
     return nltk.WordNetLemmatizer().lemmatize(term, pos=pos)
+
+
+def replace_numbers_by_zero(text):
+    """
+    pattern = r'\d+'
+    replacer = re.compile(pattern)
+    result = replacer.sub('0', text)
+    """
+    # 連続した数字を0で置換
+    replaced_text = re.sub(r'\d+', '0', text)
+    return replaced_text
+

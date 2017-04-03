@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from unittest import TestCase
-from preprocessings.ja.normalization import normalize_unicode, lower_text
+from preprocessings.ja.normalization import normalize_unicode, lower_text, replace_numbers_by_zero
 
 
 class TestNormalizeUnicode(TestCase):
@@ -41,3 +41,8 @@ class TestNormalizeUnicode(TestCase):
         text = 'ABc'
         normalized_text = lower_text(text)
         self.assertEqual(normalized_text, 'abc')
+
+    def test_replace_numbers_by_zero(self):
+        text = '2009年4月6日'
+        result = replace_numbers_by_zero(text)
+        self.assertEqual(result, '0年0月0日')
