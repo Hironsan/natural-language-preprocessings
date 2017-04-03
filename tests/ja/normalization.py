@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from unittest import TestCase
-from preprocessings.ja.normalization import normalize_unicode
+from preprocessings.ja.normalization import normalize_unicode, lower_text
 
 
 class TestNormalizeUnicode(TestCase):
@@ -36,3 +36,8 @@ class TestNormalizeUnicode(TestCase):
         text = '＠'  # 全角アットマーク
         normalized_text = normalize_unicode(text)
         self.assertEqual(normalized_text, '@')
+
+    def test_lower_text(self):
+        text = 'ABc'
+        normalized_text = lower_text(text)
+        self.assertEqual(normalized_text, 'abc')
