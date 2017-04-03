@@ -9,10 +9,11 @@ from preprocessings.ja.tokenizer import MeCabTokenizer
 DATA_DIR = os.path.join(os.path.dirname(__file__), '../data/processed')
 
 
-with open(os.path.join(DATA_DIR, 'livedoor.json')) as f:
+with open(os.path.join(DATA_DIR, 'livedoor_tokenized.json')) as f:
     livedoor = json.load(f)
 
-tokenizer = MeCabTokenizer()
+#tokenizer = MeCabTokenizer()
+livedoor['data'] = [' '.join(doc) for doc in livedoor['data']]
 X_train, X_test, y_train, y_test = train_test_split(livedoor['data'], livedoor['label'], test_size=0.4, random_state=0)
 """
 count_vect = CountVectorizer(analyzer=tokenizer.wakati_baseform)
@@ -24,8 +25,9 @@ text_clf = MultinomialNB().fit(X_train_tfidf, y_train)
 """
 from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.naive_bayes import MultinomialNB
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.pipeline import Pipeline
-text_clf = Pipeline([('vect', CountVectorizer(analyzer=tokenizer.wakati)),
+text_clf = Pipeline([('vect', CountVectorizer()),
                      ('tfidf', TfidfTransformer()),
                      ('clf', MultinomialNB()),
                      ])
