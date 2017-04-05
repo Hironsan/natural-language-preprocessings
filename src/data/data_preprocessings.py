@@ -3,6 +3,7 @@ import json
 import os
 import re
 
+from joblib import Parallel, delayed
 import tqdm
 
 from preprocessings.ja.tokenizer import MeCabTokenizer
@@ -28,30 +29,20 @@ def normalization(text):
     return normalized_text
 
 
+def process(text):
+    text = cleaning(text)
+    text = normalization(text)
+    words = tokenizer.wakati_baseform(text)
+    return words
+
+
 if __name__ == '__main__':
     with open(os.path.join(DATA_DIR, 'livedoor.json')) as f:
         livedoor = json.load(f)
 
     tokenizer = MeCabTokenizer()
-    from joblib import Parallel, delayed
-
-    def process(text):
-        text = cleaning(text)
-        text = normalization(text)
-        words = tokenizer.wakati_baseform(text)
-        return words
-    """
-    data = []
-    for text in tqdm.tqdm(livedoor['data']):
-        text = cleaning(text)
-        text = normalization(text)
-        words = tokenizer.wakati_baseform(text)
-        data.append(words)
-    """
-
     data = Parallel(n_jobs=-1)([delayed(process)(text) for text in tqdm.tqdm(livedoor['data'])])
     livedoor['data'] = data
 
     with open(os.path.join(DATA_DIR, 'livedoor_tokenized_processed.json'), 'w') as f:
         json.dump(livedoor, f)
-

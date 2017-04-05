@@ -44,7 +44,7 @@ class JanomeTokenizer(object):
 class MeCabTokenizer(object):
 
     def __init__(self, user_dic_path='', sys_dic_path=''):
-        option = '-Ochasen'
+        option = ''
         if user_dic_path:
             option += ' -u {0}'.format(user_dic_path)
         if sys_dic_path:
@@ -60,26 +60,21 @@ class MeCabTokenizer(object):
                  for token in self.tokenize(sent)]
         return words
 
-    def tokenize(self, sent):
-        self._t.parse('')  # for UnicodeDecodeError
-        node = self._t.parseToNode(sent)
-
-        while node:
-            token = namedtuple('Token', 'surface, pos, pos_detail1, pos_detail2, pos_detail3,\
-                                                     infl_type, infl_form, base_form, reading, phonetic')
-            feature = node.feature.split(',')
-            token.surface = node.surface    # 表層形
-            token.pos = feature[0]          # 品詞
-            token.pos_detail1 = feature[1]  # 品詞細分類1
-            token.pos_detail2 = feature[2]  # 品詞細分類2
-            token.pos_detail3 = feature[3]  # 品詞細分類3
-            token.infl_type = feature[4]    # 活用型
-            token.infl_form = feature[5]    # 活用形
-            token.base_form = feature[6]    # 原型
-            token.reading = feature[7] if len(feature) > 7 else ''    # 読み
-            token.phonetic = feature[8] if len(feature) > 8 else ''   # 発音
-            yield token
-            node = node.next
+    def tokenize(self, text):
+        self._t.parse('')
+        chunks = self._t.parse(text.rstrip()).splitlines()[:-1]  # Skip EOS
+        token = namedtuple('Token', 'surface, pos, pos_detail1, pos_detail2, pos_detail3,\
+                                                                         infl_type, infl_form, base_form, reading, phonetic')
+        for chunk in chunks:
+            if chunk == '':
+                continue
+            surface, feature = chunk.split('\t')
+            feature = feature.split(',')
+            if len(feature) <= 7:  # 読みがない
+                feature.append('')
+            if len(feature) <= 8:  # 発音がない
+                feature.append('')
+            yield token(surface, *feature)
 
     def filter_by_pos(self, sent, pos=('名詞',)):
         tokens = [token for token in self.tokenize(sent) if token.pos == pos]
