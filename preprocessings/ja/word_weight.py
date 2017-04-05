@@ -4,8 +4,8 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 
 corpus = [
 	'This is a pen.',
-	'That is a bot.',
-	'These are red document and blue document.',
+	#'This is an apple.',
+	'There are red pen and blue pen.',
 ]
 
 vectorizer = CountVectorizer()

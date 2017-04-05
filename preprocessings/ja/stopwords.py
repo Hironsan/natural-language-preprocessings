@@ -26,9 +26,11 @@ def remove_stopwords(words, stopwords):
     return words
 
 
-def most_common(text, n=100):
+def most_common(docs, n=100):
     fdist = Counter()
-    for word in text:
-        fdist[word] += 1
+    for doc in docs:
+        for word in doc:
+            fdist[word] += 1
     common_words = {word for word, freq in fdist.most_common(n)}
+    print('{}/{}'.format(n, len(fdist)))
     return common_words

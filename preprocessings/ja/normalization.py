@@ -26,7 +26,7 @@ def lemmatize_term(term, pos=None):
     return nltk.WordNetLemmatizer().lemmatize(term, pos=pos)
 
 
-def replace_numbers_by_zero(text):
+def normalize_number(text):
     """
     pattern = r'\d+'
     replacer = re.compile(pattern)
