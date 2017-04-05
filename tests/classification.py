@@ -35,11 +35,18 @@ from sklearn.pipeline import Pipeline
 text_clf = Pipeline([('vect', CountVectorizer(stop_words=stopwords, min_df=20)),
                      ('tfidf', TfidfTransformer()),
                      #('clf', MultinomialNB()),
-                     ('clf', GridSearchCV(RandomForestClassifier(), parameters, cv=2, scoring='accuracy', verbose=10, n_jobs=4)),
+                     ('clf', RandomForestClassifier()),
+                     #('clf', GridSearchCV(RandomForestClassifier(), parameters, cv=2, scoring='accuracy', verbose=10, n_jobs=4)),
                      ])
 
 text_clf = text_clf.fit(X_train, y_train)
 print(text_clf.score(X_test, y_test))
+print(dir(text_clf))
+print(dir(text_clf.named_steps['clf']))
+print(text_clf.named_steps['clf'].feature_importances_)
+print(len(text_clf.named_steps['clf'].feature_importances_))
+import numpy as np
+print(np.argmax(text_clf.named_steps['clf'].feature_importances_))
 y_pred = text_clf.predict(X_test)
 from sklearn.metrics import classification_report
 print(classification_report(y_test, y_pred))
