@@ -33,7 +33,7 @@ Start jupyter notebook:
 $ jupyter notebook
 ```
 
-And you can execute notebooks/document_classification.ipynb.
+And you can execute [notebooks/document_classification.ipynb](https://github.com/Hironsan/natural-language-preprocessings/blob/master/notebooks/document_classification.ipynb).
 
 Good NLP Life!
 
