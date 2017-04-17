@@ -51,9 +51,9 @@ def main(raw_dir, processed_dir):
     """ Runs data processing scripts to turn raw data from (../raw) into
         cleaned data ready to be analyzed (saved in ../processed).
     """
-    #url = 'http://www.rondhuit.com/download/ldcc-20140209.tar.gz'
-    #file_name = download_corpus(url=url, save_path=raw_dir)
-    #extract_file(file_name, raw_dir)
+    url = 'http://www.rondhuit.com/download/ldcc-20140209.tar.gz'
+    file_name = download_corpus(url=url, save_path=raw_dir)
+    extract_file(file_name, raw_dir)
     raw_data = load_corpus(os.path.join(raw_dir, 'text'))
     save_data(raw_data, os.path.join(processed_dir, 'livedoor.json'))
 

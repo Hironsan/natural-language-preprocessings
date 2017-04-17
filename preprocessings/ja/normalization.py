@@ -6,6 +6,13 @@ import nltk
 from nltk.corpus import wordnet
 
 
+def normalize(text):
+    normalized_text = normalize_unicode(text)
+    normalized_text = normalize_number(normalized_text)
+    normalized_text = lower_text(normalized_text)
+    return normalized_text
+
+
 def lower_text(text):
     return text.lower()
 
@@ -35,4 +42,3 @@ def normalize_number(text):
     # 連続した数字を0で置換
     replaced_text = re.sub(r'\d+', '0', text)
     return replaced_text
-
