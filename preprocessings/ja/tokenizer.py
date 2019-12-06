@@ -37,9 +37,9 @@ class MeCabTokenizer(object):
     def __init__(self, user_dic_path='', sys_dic_path=''):
         option = ''
         if user_dic_path:
-            option += ' -d {0}'.format(user_dic_path)
+            option += ' -u {0}'.format(user_dic_path)
         if sys_dic_path:
-            option += ' -u {0}'.format(sys_dic_path)
+            option += ' -d {0}'.format(sys_dic_path)
         self._t = MeCab.Tagger(option)
 
     def wakati(self, sent):
