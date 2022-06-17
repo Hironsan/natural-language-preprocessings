@@ -8,7 +8,7 @@ joblib==0.11
 matplotlib==2.0.0
 mecab-python3==0.7
 nltk==3.2.2
-numpy==1.12.1
+numpy==1.21.0
 pyparsing==2.2.0
 python-dateutil==2.6.0
 pytz==2016.10
