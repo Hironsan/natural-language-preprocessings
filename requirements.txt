@@ -4,7 +4,7 @@ bz2file==0.98
 cycler==0.10.0
 gensim==1.0.1
 Janome==0.2.8
-joblib==0.11
+joblib==1.2.0
 matplotlib==2.0.0
 mecab-python3==0.7
 nltk==3.2.2
