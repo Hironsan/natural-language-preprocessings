@@ -7,7 +7,7 @@ Janome==0.2.8
 joblib==1.2.0
 matplotlib==2.0.0
 mecab-python3==0.7
-nltk==3.2.2
+nltk==3.6.6
 numpy==1.12.1
 pyparsing==2.2.0
 python-dateutil==2.6.0
